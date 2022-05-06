@@ -1,8 +1,11 @@
 # Neurone Models
 
-## Leaky Integrate and Fire Model
+## Models on Spikes of the Neurones
 
-## Leaky Integrate and Fire Model with Spike
+### Leaky Integrate and Fire Model
 
-## Izhikevich Simple Neurone Model 
+### Leaky Integrate and Fire Model with Spike
 
+### Izhikevich Simple Neurone Model
+
+## Models on the Synapses of the Neurones
