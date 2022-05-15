@@ -3,17 +3,16 @@ import matplotlib.pyplot as plt
 import numpy
 from pandas import DataFrame
 
-i_stim_val = [0.05, 0.06, 0.07, 0.08, 0.09,
-              0.10, 0.15, 0.125, 0.175, 0.2, 0.25, 0.225]
+b_val = list(range(1,15,2))
 
 eqs = eqs = """
     dvm/dt = (g_l*(e_l - vm) + g_l*d_t*exp((vm-v_t)/d_t) + i_stim - w)/c_m : volt (unless refractory)
     dw/dt  = (a*(vm - e_l) - w)/tau_w : amp
     """
 
-stm_values = []
+b_values = []
 isi_values = []
-for i in i_stim_val:
+for i in b_val:
     parameters = {
         "c_m": 200 * pF,
         "g_l": 10.*nS,
@@ -22,9 +21,9 @@ for i in i_stim_val:
         "d_t": 5.0*mV,
         "a": 2.0 * nS,
         "tau_w": 500.0*ms,
-        "b": 10.0*pA,
+        "b": i*pA,
         "v_r": -52*mV,
-        "i_stim": i*nA,
+        "i_stim": .120*nA,
     }
     neuron = NeuronGroup(
         1,
@@ -49,13 +48,13 @@ for i in i_stim_val:
     difference = numpy.unique(difference)
 
     for j in difference:
-        stm_values.append(i)
+        b_values.append(i)
         isi_values.append(j)
 
 
-df = DataFrame({'variable': stm_values, 'isi': isi_values})
-plt.title("Change in inter spike interval by time")
-plt.xlabel('Variation of I (nA)')
+df = DataFrame({'variable': b_values, 'isi': isi_values})
+plt.title("Change in inter spike interval by b")
+plt.xlabel('Variation of b (pA)')
 plt.ylabel('Inter Spike Interval')
 plt.scatter(data=df, x='variable', y='isi')
 plt.show()

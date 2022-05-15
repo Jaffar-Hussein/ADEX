@@ -20,11 +20,11 @@ for i in i_stim_val:
         "e_l": -65.*mV,
         "v_t": -55.*mV,
         "d_t": 5.0*mV,
-        "a": 2.0 * nS,
+        "a": i * nS,
         "tau_w": 500.0*ms,
         "b": 10.0*pA,
         "v_r": -52*mV,
-        "i_stim": i*nA,
+        "i_stim": .120*nA,
     }
     neuron = NeuronGroup(
         1,
