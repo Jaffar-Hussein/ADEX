@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy
 from pandas import DataFrame
 
-a_val = list(range(1,10))
+a_val = list(range(1, 10))
 
 eqs = eqs = """
     dvm/dt = (g_l*(e_l - vm) + g_l*d_t*exp((vm-v_t)/d_t) + i_stim - w)/c_m : volt (unless refractory)
@@ -51,16 +51,18 @@ for i in a_val:
         a_values.append(i)
         isi_values.append(j)
 
-# plt.figure(figsize=(10,10),dpi=300)
 df = DataFrame({'variable': a_values, 'isi': isi_values})
+
+
 def a_plt(df):
-    plt.figure(dpi=300, tight_layout=True)
+    plt.figure(figsize=(10,5),dpi=300, tight_layout=True)
     plt.title("Change in inter spike interval by a")
-    plt.xlabel('Variation of a (ms)')
-    plt.ylabel('Inter Spike Interval')
+    plt.xlabel('Variation of a (nS)')
+    plt.ylabel('Inter Spike Interval (s)')
     plt.scatter(data=df, x='variable', y='isi', marker=",")
     plt.show()
-   
+
+
 if __name__ == '__main__':
-        
+
     a_plt(df)

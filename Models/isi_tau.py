@@ -4,7 +4,7 @@ import numpy
 from pandas import DataFrame
 
 tau = list(range(100, 1100, 100))
-print(tau)
+# print(tau)
 eqs = eqs = """
     dvm/dt = (g_l*(e_l - vm) + g_l*d_t*exp((vm-v_t)/d_t) + i_stim - w)/c_m : volt (unless refractory)
     dw/dt  = (a*(vm - e_l) - w)/tau_w : amp
@@ -52,26 +52,18 @@ for i in tau:
         isi_values.append(j)
 
 
-plt.figure(dpi=300, tight_layout=True)
-
 df = DataFrame({'variable': stm_values, 'isi': isi_values})
-# plt.title("Change in inter spike interval by tau")
-# plt.xlabel('Variation of tau (ms)')
-# plt.ylabel('Inter Spike Interval')
-# plt.scatter(data=df, x='variable', y='isi', marker=",")
-# if __name__ == '__main__':
 
-#     plt.show()
 
 def tau_plt(df):
-    plt.figure(dpi=300, tight_layout=True)
+    plt.figure(figsize=(10,5),dpi=300, tight_layout=True)
     plt.title("Change in inter spike interval by tau")
     plt.xlabel('Variation of tau (ms)')
-    plt.ylabel('Inter Spike Interval')
+    plt.ylabel('Inter Spike Interval (s)')
     plt.scatter(data=df, x='variable', y='isi', marker=",")
     plt.show()
-   
-if __name__ == '__main__':
-        
-    tau_plt(df)
 
+
+if __name__ == '__main__':
+
+    tau_plt(df)
