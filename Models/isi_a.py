@@ -3,17 +3,16 @@ import matplotlib.pyplot as plt
 import numpy
 from pandas import DataFrame
 
-i_stim_val = [0.05, 0.06, 0.07, 0.08, 0.09,
-              0.10, 0.15, 0.125, 0.175, 0.2, 0.25, 0.225]
+a_val = list(range(1,10))
 
 eqs = eqs = """
     dvm/dt = (g_l*(e_l - vm) + g_l*d_t*exp((vm-v_t)/d_t) + i_stim - w)/c_m : volt (unless refractory)
-    dw/dt  = (a*(vm - e_l) - w)/tau_w : amp
+    dw/dt  = (a*(vm - e_l) - w)/a_w : amp
     """
 
-tau_values = []
+a_values = []
 isi_values = []
-for i in i_stim_val:
+for i in a_val:
     parameters = {
         "c_m": 200 * pF,
         "g_l": 10.*nS,
@@ -21,7 +20,7 @@ for i in i_stim_val:
         "v_t": -55.*mV,
         "d_t": 5.0*mV,
         "a": i * nS,
-        "tau_w": 500.0*ms,
+        "a_w": 500.0*ms,
         "b": 10.0*pA,
         "v_r": -52*mV,
         "i_stim": .120*nA,
@@ -45,17 +44,23 @@ for i in i_stim_val:
     vms = np.clip(states[0].vm / mV, a_min=None, a_max=0)
 
     difference = numpy.diff(train.spike_trains()[0])
-    difference = numpy.around(difference, 1)
-    difference = numpy.unique(difference)
+    # difference = numpy.around(difference, 1)
+    # difference = numpy.unique(difference)
 
     for j in difference:
-        tau_values.append(i)
+        a_values.append(i)
         isi_values.append(j)
 
-
-df = DataFrame({'variable': tau_values, 'isi': isi_values})
-plt.title("Change in inter spike interval by time")
-plt.xlabel('Variation of I (nA)')
-plt.ylabel('Inter Spike Interval')
-plt.scatter(data=df, x='variable', y='isi')
-plt.show()
+# plt.figure(figsize=(10,10),dpi=300)
+df = DataFrame({'variable': a_values, 'isi': isi_values})
+def a_plt(df):
+    plt.figure(dpi=300, tight_layout=True)
+    plt.title("Change in inter spike interval by a")
+    plt.xlabel('Variation of a (ms)')
+    plt.ylabel('Inter Spike Interval')
+    plt.scatter(data=df, x='variable', y='isi', marker=",")
+    plt.show()
+   
+if __name__ == '__main__':
+        
+    a_plt(df)

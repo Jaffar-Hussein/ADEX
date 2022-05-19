@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy
 from pandas import DataFrame
 
-tau = list(range(100,1100,100))
+tau = list(range(100, 1100, 100))
 print(tau)
 eqs = eqs = """
     dvm/dt = (g_l*(e_l - vm) + g_l*d_t*exp((vm-v_t)/d_t) + i_stim - w)/c_m : volt (unless refractory)
@@ -44,17 +44,34 @@ for i in tau:
     vms = np.clip(states[0].vm / mV, a_min=None, a_max=0)
 
     difference = numpy.diff(train.spike_trains()[0])
-    difference = numpy.around(difference, 1)
-    difference = numpy.unique(difference)
+    # difference = numpy.around(difference, 1)
+    # difference = numpy.unique(difference)
 
     for j in difference:
         stm_values.append(i)
         isi_values.append(j)
 
 
+plt.figure(dpi=300, tight_layout=True)
+
 df = DataFrame({'variable': stm_values, 'isi': isi_values})
-plt.title("Change in inter spike interval by time")
-plt.xlabel('Variation of I (nA)')
-plt.ylabel('Inter Spike Interval')
-plt.scatter(data=df, x='variable', y='isi')
-plt.show()
+# plt.title("Change in inter spike interval by tau")
+# plt.xlabel('Variation of tau (ms)')
+# plt.ylabel('Inter Spike Interval')
+# plt.scatter(data=df, x='variable', y='isi', marker=",")
+# if __name__ == '__main__':
+
+#     plt.show()
+
+def tau_plt(df):
+    plt.figure(dpi=300, tight_layout=True)
+    plt.title("Change in inter spike interval by tau")
+    plt.xlabel('Variation of tau (ms)')
+    plt.ylabel('Inter Spike Interval')
+    plt.scatter(data=df, x='variable', y='isi', marker=",")
+    plt.show()
+   
+if __name__ == '__main__':
+        
+    tau_plt(df)
+

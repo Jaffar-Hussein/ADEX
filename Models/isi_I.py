@@ -45,17 +45,24 @@ for i in i_stim_val:
     vms = np.clip(states[0].vm / mV, a_min=None, a_max=0)
 
     difference = numpy.diff(train.spike_trains()[0])
-    difference = numpy.around(difference, 1)
-    difference = numpy.unique(difference)
+    # difference = numpy.around(difference, 1)
+    # difference = numpy.unique(difference)
 
     for j in difference:
         stm_values.append(i)
         isi_values.append(j)
 
+# plt.figure(dpi=300, tight_layout=True)
 
 df = DataFrame({'variable': stm_values, 'isi': isi_values})
-plt.title("Change in inter spike interval by time")
-plt.xlabel('Variation of I (nA)')
-plt.ylabel('Inter Spike Interval')
-plt.scatter(data=df, x='variable', y='isi')
-plt.show()
+def I_plt(df):
+    plt.figure(dpi=300, tight_layout=True)
+    plt.title("Change in inter spike interval by a")
+    plt.xlabel('Variation of a (ms)')
+    plt.ylabel('Inter Spike Interval')
+    plt.scatter(data=df, x='variable', y='isi', marker=",")
+    plt.show()
+   
+if __name__ == '__main__':
+        
+    I_plt(df)
