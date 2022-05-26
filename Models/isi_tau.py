@@ -59,6 +59,8 @@ def tau_plt(df):
     plt.figure(figsize=(10,5),dpi=300, tight_layout=True)
     plt.title("Change in inter spike interval by tau")
     plt.xlabel('Variation of tau (ms)')
+    # plt.xlim(500,4000)
+    
     plt.ylabel('Inter Spike Interval (s)')
     plt.scatter(data=df, x='variable', y='isi', marker=",")
     plt.show()

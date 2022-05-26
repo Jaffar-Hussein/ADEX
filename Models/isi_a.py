@@ -42,8 +42,10 @@ for i in a_val:
     run(4000 * ms)
 
     vms = np.clip(states[0].vm / mV, a_min=None, a_max=0)
-
+    
     difference = numpy.diff(train.spike_trains()[0])
+    # print(difference)
+    # break
     # difference = numpy.around(difference, 1)
     # difference = numpy.unique(difference)
 
@@ -59,6 +61,8 @@ def a_plt(df):
     plt.title("Change in inter spike interval by a")
     plt.xlabel('Variation of a (nS)')
     plt.ylabel('Inter Spike Interval (s)')
+    xlim(right=7.5)
+    # plt.xlim(500,4000)
     plt.scatter(data=df, x='variable', y='isi', marker=",")
     plt.show()
 

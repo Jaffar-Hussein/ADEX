@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import numpy
 from pandas import DataFrame
 
-b_val = list(range(1, 15, 2))
-
+b_val = list(range(5, 30, 2))
+# b_val =[25]
 eqs = eqs = """
     dvm/dt = (g_l*(e_l - vm) + g_l*d_t*exp((vm-v_t)/d_t) + i_stim - w)/c_m : volt (unless refractory)
     dw/dt  = (a*(vm - e_l) - w)/b_w : amp
@@ -40,14 +40,18 @@ for i in b_val:
     defaultclock.dt = 0.1 * ms
     train = SpikeMonitor(neuron, record=True)
     run(4000 * ms)
+    # print(train._stored_states)
 
     vms = np.clip(states[0].vm / mV, a_min=None, a_max=0)
-
+    print(train.spike_trains()[0])
+    
     difference = numpy.diff(train.spike_trains()[0])
+    # print(difference[4:])
+    # break
     # difference = numpy.around(difference, 1)
     # difference = numpy.unique(difference)
 
-    for j in difference:
+    for j in difference[4:]:
         b_values.append(i)
         isi_values.append(j)
 
@@ -56,6 +60,8 @@ df = DataFrame({'variable': b_values, 'isi': isi_values})
 
 
 def b_plt(df):
+    # plt.xlim(500,4000)
+    
     plt.figure(figsize=(10,5),dpi=300, tight_layout=True)
     plt.title("Change in inter spike interval by b")
     plt.xlabel('Variation of b (pA)')

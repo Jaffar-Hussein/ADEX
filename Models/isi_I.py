@@ -58,9 +58,11 @@ df = DataFrame({'variable': stm_values, 'isi': isi_values})
 
 def I_plt(df):
     plt.figure(figsize=(10,5),dpi=300, tight_layout=True)
-    plt.title("Change in inter spike interval by a")
+    plt.title("Change in inter spike interval by injected current")
     plt.xlabel('Variation of Injected Current (I)')
     plt.ylabel('Inter Spike Interval (s)')
+    # plt.xlim(500,4000)
+    
     plt.scatter(data=df, x='variable', y='isi', marker=",")
     plt.show()
 
