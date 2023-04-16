@@ -5,7 +5,7 @@
 
 **Modelling of neuronal interactions at the claustrum level**
 
-**[LABORATORY: UMR9197 NEUROPSI SACLAY FRANCE](https://neuropsi.cnrs.fr)**
+**LABORATORY: UMR9197 [NEUROPSI SACLAY FRANCE](https://neuropsi.cnrs.fr)**
 
 **LABORATORY DIRECTOR: Mr. ROUYER Francois**
 
